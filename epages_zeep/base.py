@@ -197,6 +197,7 @@ class ArrayFixer(Plugin):
         ".//Attributes",
         ".//LanguageCodes",
         ".//PriceLists",
+        ".//ScalePrices",
     )
 
     def egress(self, envelope, http_headers, operation, binding_options):
@@ -219,6 +220,6 @@ class ArrayFixer(Plugin):
             length = len(elements)
             elements.attrib[
                 "{http://schemas.xmlsoap.org/soap/encoding/}arrayType"
-            ] = f"xsd:string[{length}]"
+            ] = f"xsd:anyType[{length}]"
 
         return envelope
