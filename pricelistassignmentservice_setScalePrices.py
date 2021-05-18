@@ -17,6 +17,7 @@ factory1 = pricelistassignment_service.zeep.type_factory("ns1")
 #pricelistassignment_service.zeep.wsdl.dump()
 
 productalias = os.getenv("PRODUCTALIAS")
+productalias2 = os.getenv("PRODUCTALIAS2")
 pricelistalias = os.getenv("PRICELISTALIAS")
 
 res = pricelistassignment_service.service.setScalePrices(
@@ -32,6 +33,19 @@ res = pricelistassignment_service.service.setScalePrices(
                 factory1.TScalePrice(
                     Quantity=10.0,
                     Price=55.0
+                ),
+            ])),
+        factory1.TSetScalePrices_Input(
+            Product=f"Products/{productalias2}",
+            PriceList=f"PriceLists/{pricelistalias}",
+            ScalePrices=factory1.ListOfScalePrices([
+                factory1.TScalePrice(
+                    Quantity=15.0,
+                    Price=321.0
+                ),
+                factory1.TScalePrice(
+                    Quantity=20.0,
+                    Price=123.0
                 ),
             ]))
     ])

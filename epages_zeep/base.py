@@ -210,16 +210,17 @@ class ArrayFixer(Plugin):
 
         return envelope, http_headers
 
-    def _mangleToArrayType(self, envelope, element):
+    def _mangleToArrayType(self, envelope, xpath):
         """
         Do one element
         """
-        elements = envelope.find(element)
-        if elements is not None:
-            # logger.debug(f"Mangling '{element}', to soap enc arraytype")
-            length = len(elements)
-            elements.attrib[
-                "{http://schemas.xmlsoap.org/soap/encoding/}arrayType"
-            ] = f"xsd:anyType[{length}]"
+        elements = envelope.findall(xpath)
+        for element in elements:
+            if element is not None:
+                # logger.debug(f"Mangling '{element}', to soap enc arraytype")
+                length = len(element)
+                element.attrib[
+                    "{http://schemas.xmlsoap.org/soap/encoding/}arrayType"
+                ] = f"xsd:anyType[{length}]"
 
         return envelope
